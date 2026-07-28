@@ -16,6 +16,12 @@ export function getSupabase() {
 
   return createClient(url, anonKey, {
     auth: { persistSession: false },
+    global: {
+      // 모든 요청을 no-store 로 강제 → Next.js/Vercel Data Cache 에 저장되지 않음.
+      // (이게 없으면 DB 를 바꿔도 재배포 전까지 옛날 데이터가 캐시됨)
+      fetch: (input: RequestInfo | URL, init?: RequestInit) =>
+        fetch(input, { ...init, cache: "no-store" }),
+    },
   });
 }
 

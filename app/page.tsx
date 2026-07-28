@@ -1,9 +1,11 @@
+import { unstable_noStore as noStore } from "next/cache";
 import GuestbookForm from "./GuestbookForm";
 import { getSupabase, type GuestEntry } from "@/lib/supabase";
 import styles from "./page.module.css";
 
 // 방명록은 항상 최신 데이터를 보여줍니다.
 export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 function formatDate(iso: string): string {
   const d = new Date(iso);
@@ -15,6 +17,7 @@ function formatDate(iso: string): string {
 }
 
 async function getEntries(): Promise<GuestEntry[]> {
+  noStore(); // 이 렌더링을 캐시에서 제외 (항상 실시간 DB 조회)
   try {
     const supabase = getSupabase();
     // 비밀글 본문은 DB 함수(list_guestbook)가 빈 문자열로 마스킹하므로
