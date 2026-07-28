@@ -1,12 +1,38 @@
-/* Figma: Guestbook / Main (1363:23390) — 375px 모바일 프레임 */
+/* Figma: Guestbook / Main (1363:23390) — 384px 모바일 프레임 */
 .page {
-  max-width: 375px;
+  max-width: 384px;
   margin: 0 auto;
   min-height: 100vh;
   padding: 48px 20px;
   display: flex;
   flex-direction: column;
   gap: 28px;
+}
+
+/* 하단 배경 장식 이미지 (Figma image 6964 = 1374:23457, opacity 15%)
+   + 위쪽 페이드(1374:23460 gradient)를 mask 로 표현.
+   콘텐츠 뒤(z-index -1)에 고정되어 카드가 그 위로 스크롤됩니다. */
+.bgDecor {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 463px;
+  max-width: 100%;
+  height: 464px;
+  opacity: 0.15;
+  z-index: -1;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 110px);
+  mask-image: linear-gradient(to bottom, transparent 0, #000 110px);
+}
+
+.bgDecor img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: bottom center;
+  display: block;
 }
 
 /* ---------- Header (1363:23391) ---------- */
@@ -22,7 +48,7 @@
   margin: 0;
   font-weight: 700;
   font-size: 22px;
-  color: #2f3c7e;
+  color: #f96167;
 }
 
 .subtitle {

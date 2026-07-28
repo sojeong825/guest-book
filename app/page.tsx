@@ -37,10 +37,15 @@ export default async function Page() {
 
   return (
     <main className={styles.page}>
+      {/* 하단 배경 장식 이미지 (Figma 1374:23457) */}
+      <div className={styles.bgDecor} aria-hidden="true">
+        <img src="/birthday-bg.png" alt="" />
+      </div>
+
       {/* Header */}
       <header className={styles.header}>
         <h1 className={styles.title}>🎂 생일 방명록</h1>
-        <p className={styles.subtitle}>생일을 축하해 주세요 💌</p>
+        <p className={styles.subtitle}>생일을 축하해 주세요~</p>
       </header>
 
       {/* WriteForm */}
