@@ -1,6 +1,7 @@
 import { unstable_noStore as noStore } from "next/cache";
 import GuestbookForm from "./GuestbookForm";
 import { getSupabase, type GuestEntry } from "@/lib/supabase";
+import { CakeIcon } from "@/lib/cakes";
 import styles from "./page.module.css";
 
 // 방명록은 항상 최신 데이터를 보여줍니다.
@@ -61,6 +62,9 @@ export default async function Page() {
         ) : (
           entries.map((entry) => (
             <article key={entry.id} className={styles.card}>
+              <span className={styles.cardCake}>
+                <CakeIcon type={entry.cake ?? "choco"} size={30} />
+              </span>
               <div className={styles.cardTop}>
                 <p className={styles.cardName}>{entry.name}</p>
                 <p className={styles.cardDate}>{formatDate(entry.created_at)}</p>

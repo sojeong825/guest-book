@@ -30,5 +30,6 @@ export type GuestEntry = {
   name: string;
   message: string;
   is_secret: boolean;
+  cake?: string; // 케이크 종류 id (마이그레이션 전 데이터는 없을 수 있어 optional)
   created_at: string;
 };

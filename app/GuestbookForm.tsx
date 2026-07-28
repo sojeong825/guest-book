@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import { useFormState, useFormStatus } from "react-dom";
 import { addEntry, type FormState } from "./actions";
+import { CAKES, CakeIcon } from "@/lib/cakes";
 import styles from "./page.module.css";
 
 const initialState: FormState = { error: null };
@@ -45,6 +46,29 @@ export default function GuestbookForm() {
           maxLength={200}
           aria-label="메시지"
         />
+
+        {/* 케이크 선택 (6종) */}
+        <fieldset className={styles.cakePicker}>
+          <legend className={styles.cakeLegend}>케이크 고르기</legend>
+          <div className={styles.cakeGrid}>
+            {CAKES.map((cake, i) => (
+              <label key={cake.id} className={styles.cakeOption} title={cake.label}>
+                <input
+                  type="radio"
+                  name="cake"
+                  value={cake.id}
+                  defaultChecked={i === 0}
+                  className={styles.cakeRadio}
+                />
+                <span className={styles.cakeThumb}>
+                  <CakeIcon type={cake.id} size={30} />
+                </span>
+                <span className={styles.cakeName}>{cake.label}</span>
+              </label>
+            ))}
+          </div>
+        </fieldset>
+
         <SubmitButton />
       </div>
 

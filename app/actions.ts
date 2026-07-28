@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { getSupabase } from "@/lib/supabase";
+import { isCakeType, DEFAULT_CAKE } from "@/lib/cakes";
 
 export type FormState = {
   error: string | null;
@@ -15,6 +16,8 @@ export async function addEntry(
   const name = String(formData.get("name") ?? "").trim();
   const message = String(formData.get("message") ?? "").trim();
   const isSecret = formData.get("is_secret") === "on";
+  const cakeRaw = formData.get("cake");
+  const cake = isCakeType(cakeRaw) ? cakeRaw : DEFAULT_CAKE;
 
   // 빈 입력 검증
   if (!name && !message) {
@@ -31,7 +34,7 @@ export async function addEntry(
     const supabase = getSupabase();
     const { error } = await supabase
       .from("guestbook")
-      .insert({ name, message, is_secret: isSecret });
+      .insert({ name, message, is_secret: isSecret, cake });
 
     if (error) {
       console.error("Supabase insert error:", error);
