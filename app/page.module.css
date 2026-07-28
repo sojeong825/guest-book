@@ -46,6 +46,7 @@
 
 .title {
   margin: 0;
+  font-family: var(--font-keris), "Noto Sans KR", sans-serif;
   font-weight: 700;
   font-size: 22px;
   color: #f96167;

@@ -1,5 +1,14 @@
 import type { Metadata } from "next";
+import localFont from "next/font/local";
 import "./globals.css";
+
+// KERIS 케듀체 (Figma 제목용) — 프로젝트에 포함해 self-host
+const kerisKedu = localFont({
+  src: "./fonts/KerisKedu-Bold.otf",
+  variable: "--font-keris",
+  weight: "700",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "생일 방명록",
@@ -12,7 +21,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="ko">
+    <html lang="ko" className={kerisKedu.variable}>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
