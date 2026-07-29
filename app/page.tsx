@@ -55,12 +55,23 @@ export default async function Page() {
       <header className={styles.header}>
         {/* 배경 별 장식 */}
         <div className={styles.stars} aria-hidden="true">
-          <span style={{ top: "6px", left: "10%", fontSize: "14px", opacity: 0.9 }}>✦</span>
-          <span style={{ top: "44px", left: "2%", fontSize: "11px", opacity: 0.7 }}>✦</span>
-          <span style={{ top: "-6px", left: "62%", fontSize: "10px", opacity: 0.6 }}>✦</span>
-          <span style={{ top: "30px", left: "90%", fontSize: "15px", opacity: 0.9 }}>✦</span>
-          <span style={{ top: "78px", left: "80%", fontSize: "11px", opacity: 0.7 }}>✦</span>
-          <span style={{ top: "70px", left: "20%", fontSize: "10px", opacity: 0.6 }}>✦</span>
+          {[
+            { top: 4, left: "10%", size: 16, o: 0.95 },
+            { top: 44, left: "2%", size: 12, o: 0.75 },
+            { top: -4, left: "62%", size: 11, o: 0.65 },
+            { top: 28, left: "90%", size: 18, o: 0.95 },
+            { top: 78, left: "80%", size: 12, o: 0.75 },
+            { top: 70, left: "20%", size: 11, o: 0.65 },
+          ].map((s, i) => (
+            <svg
+              key={i}
+              className={styles.star}
+              style={{ top: s.top, left: s.left, width: s.size, height: s.size, opacity: s.o }}
+              viewBox="0 0 24 24"
+            >
+              <path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.786 1.402 8.174L12 18.897l-7.336 3.863 1.402-8.174L.132 9.21l8.2-1.192z" />
+            </svg>
+          ))}
         </div>
         <h1 className={styles.title}>
           {/* eslint-disable-next-line @next/next/no-img-element */}

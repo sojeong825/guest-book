@@ -66,10 +66,9 @@
   z-index: 0;
 }
 
-.stars span {
+.star {
   position: absolute;
-  color: #f9a3b4;
-  line-height: 1;
+  fill: #f7a9bd;
 }
 
 .title {
