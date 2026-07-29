@@ -2,11 +2,10 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 
-// KERIS 케듀체 (Figma 제목용) — 프로젝트에 포함해 self-host
-const kerisKedu = localFont({
-  src: "./fonts/KerisKedu-Bold.otf",
-  variable: "--font-keris",
-  weight: "700",
+// 원모바일 POP체 (제목용) — 프로젝트에 포함해 self-host
+const titleFont = localFont({
+  src: "./fonts/ONEMobilePOP.ttf",
+  variable: "--font-title",
   display: "swap",
 });
 
@@ -21,7 +20,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="ko" className={kerisKedu.variable}>
+    <html lang="ko" className={titleFont.variable}>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
