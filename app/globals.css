@@ -8,6 +8,7 @@ html,
 body {
   margin: 0;
   padding: 0;
+  overflow-x: clip; /* 캐릭터 횡스크롤이 페이지 전체를 가로로 밀지 않도록 (clip=스크롤컨테이너 안 만듦) */
 }
 
 body {

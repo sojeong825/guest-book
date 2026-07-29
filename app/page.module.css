@@ -7,6 +7,7 @@
   display: flex;
   flex-direction: column;
   gap: 28px;
+  overflow-x: clip; /* 캐릭터 횡스크롤이 페이지 전체를 밀지 않도록 */
 }
 
 /* 하단 배경 장식 이미지 (Figma image 6964 = 1374:23457, opacity 15%)
@@ -37,6 +38,7 @@
 
 /* ---------- Header (1363:23391) ---------- */
 .header {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -44,7 +46,35 @@
   text-align: center;
 }
 
+/* 제목 곰돌이 */
+.titleBear {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  vertical-align: -8px;
+  margin-right: 4px;
+}
+
+/* 배경 별 장식 */
+.stars {
+  position: absolute;
+  top: -14px;
+  left: 0;
+  right: 0;
+  height: 110px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.stars span {
+  position: absolute;
+  color: #f9a3b4;
+  line-height: 1;
+}
+
 .title {
+  position: relative;
+  z-index: 1;
   margin: 0;
   font-family: var(--font-keris), "Noto Sans KR", sans-serif;
   font-weight: 700;
@@ -53,6 +83,8 @@
 }
 
 .subtitle {
+  position: relative;
+  z-index: 1;
   margin: 0;
   font-weight: 400;
   font-size: 13px;
@@ -120,6 +152,17 @@
   font-size: 15px;
   cursor: pointer;
   transition: background 0.15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+/* 버튼 안 곰돌이 */
+.submitBear {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
 }
 
 .submit:hover:not(:disabled) {
@@ -239,9 +282,17 @@
 
 .cardTop {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
   gap: 12px;
+}
+
+/* 아이콘 + 이름 (왼쪽 묶음) */
+.cardWho {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
 }
 
 .cardName {
@@ -283,36 +334,44 @@
   padding: 24px 0;
 }
 
-/* ---------- 케이크 선택기 (작성 폼) ---------- */
-.cakePicker {
+/* ---------- 캐릭터 선택기 (작성 폼, 횡스크롤) ---------- */
+.stickerPicker {
   border: 0;
-  margin: 0;
+  margin: 10px 0;
   padding: 0;
   width: 100%;
+  min-width: 0; /* flexbox min-width:auto 때문에 fieldset 이 부풀어 폼을 뚫는 것 방지 */
 }
 
-.cakeLegend {
+.stickerLegend {
+  margin: 0 0 8px;
   padding: 0;
-  margin-bottom: 8px;
   font-size: 13px;
   color: #6b7280;
 }
 
-.cakeGrid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
+.stickerScroll {
+  display: block;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: thin;
+  -webkit-overflow-scrolling: touch;
+  min-width: 0;
 }
 
-.cakeOption {
+.stickerTrack {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
+  gap: 10px;
+  width: max-content;
+  padding-bottom: 6px;
+}
+
+.stickerOption {
+  flex: 0 0 auto;
   cursor: pointer;
 }
 
-.cakeRadio {
+.stickerRadio {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -323,41 +382,56 @@
   border: 0;
 }
 
-.cakeThumb {
+.stickerThumb {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  padding: 8px 0;
+  width: 58px;
+  height: 58px;
   border: 1.5px solid #e3e6f0;
-  border-radius: 10px;
+  border-radius: 12px;
   background: #ffffff;
+  overflow: hidden;
   transition: border-color 0.15s ease, background 0.15s ease;
 }
 
-.cakeName {
-  font-size: 11px;
-  color: #6b7280;
-  transition: color 0.15s ease;
+/* 원본 비율이 달라도 같은 크기로 보이게 통일 */
+.stickerThumb img {
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  display: block;
 }
 
-.cakeRadio:checked + .cakeThumb {
+.stickerRadio:checked + .stickerThumb {
   border-color: #f96167;
   background: #fff0f1;
 }
 
-.cakeRadio:checked ~ .cakeName {
-  color: #f96167;
-  font-weight: 700;
-}
-
-.cakeRadio:focus-visible + .cakeThumb {
+.stickerRadio:focus-visible + .stickerThumb {
   outline: 2px solid rgba(249, 97, 103, 0.4);
   outline-offset: 2px;
 }
 
-/* ---------- 카드 위 케이크 아이콘 ---------- */
-.cardCake {
+/* ---------- 카드 위 캐릭터 아이콘 ---------- */
+.cardSticker {
   display: inline-flex;
-  align-self: flex-start;
+  flex-shrink: 0;
+}
+
+.cardSticker img {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+  display: block;
+}
+
+.cardName {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cardDate {
+  flex-shrink: 0;
 }

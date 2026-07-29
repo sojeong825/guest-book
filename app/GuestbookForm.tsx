@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import { useFormState, useFormStatus } from "react-dom";
 import { addEntry, type FormState } from "./actions";
-import { CAKES, CakeIcon } from "@/lib/cakes";
+import { STICKERS } from "@/lib/stickers";
 import styles from "./page.module.css";
 
 const initialState: FormState = { error: null };
@@ -12,6 +12,8 @@ function SubmitButton() {
   const { pending } = useFormStatus();
   return (
     <button type="submit" className={styles.submit} disabled={pending}>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src="/characters/4.png" alt="" className={styles.submitBear} />
       {pending ? "축하 중…" : "축하하기"}
     </button>
   );
@@ -47,27 +49,29 @@ export default function GuestbookForm() {
           aria-label="메시지"
         />
 
-        {/* 케이크 선택 (6종) */}
-        <fieldset className={styles.cakePicker}>
-          <legend className={styles.cakeLegend}>케이크 고르기</legend>
-          <div className={styles.cakeGrid}>
-            {CAKES.map((cake, i) => (
-              <label key={cake.id} className={styles.cakeOption} title={cake.label}>
+        {/* 캐릭터 선택 (횡스크롤, 라벨 없음) */}
+        <div className={styles.stickerPicker} role="radiogroup" aria-label="캐릭터 선택">
+          <p className={styles.stickerLegend}>캐릭터 고르기</p>
+          <div className={styles.stickerScroll}>
+            <div className={styles.stickerTrack}>
+            {STICKERS.map((s, i) => (
+              <label key={s.id} className={styles.stickerOption}>
                 <input
                   type="radio"
-                  name="cake"
-                  value={cake.id}
+                  name="sticker"
+                  value={s.id}
                   defaultChecked={i === 0}
-                  className={styles.cakeRadio}
+                  className={styles.stickerRadio}
                 />
-                <span className={styles.cakeThumb}>
-                  <CakeIcon type={cake.id} size={30} />
+                <span className={styles.stickerThumb}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={s.src} alt="" />
                 </span>
-                <span className={styles.cakeName}>{cake.label}</span>
               </label>
             ))}
+            </div>
           </div>
-        </fieldset>
+        </div>
 
         <SubmitButton />
       </div>

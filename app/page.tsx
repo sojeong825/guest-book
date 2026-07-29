@@ -1,7 +1,7 @@
 import { unstable_noStore as noStore } from "next/cache";
 import GuestbookForm from "./GuestbookForm";
 import { getSupabase, type GuestEntry } from "@/lib/supabase";
-import { CakeIcon } from "@/lib/cakes";
+import { stickerSrc } from "@/lib/stickers";
 import styles from "./page.module.css";
 
 // 방명록은 항상 최신 데이터를 보여줍니다.
@@ -48,7 +48,20 @@ export default async function Page() {
 
       {/* Header */}
       <header className={styles.header}>
-        <h1 className={styles.title}>🎂 생일 방명록</h1>
+        {/* 배경 별 장식 */}
+        <div className={styles.stars} aria-hidden="true">
+          <span style={{ top: "6px", left: "10%", fontSize: "14px", opacity: 0.9 }}>✦</span>
+          <span style={{ top: "44px", left: "2%", fontSize: "11px", opacity: 0.7 }}>✦</span>
+          <span style={{ top: "-6px", left: "62%", fontSize: "10px", opacity: 0.6 }}>✦</span>
+          <span style={{ top: "30px", left: "90%", fontSize: "15px", opacity: 0.9 }}>✦</span>
+          <span style={{ top: "78px", left: "80%", fontSize: "11px", opacity: 0.7 }}>✦</span>
+          <span style={{ top: "70px", left: "20%", fontSize: "10px", opacity: 0.6 }}>✦</span>
+        </div>
+        <h1 className={styles.title}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/characters/1.png" alt="" className={styles.titleBear} />
+          생일 방명록
+        </h1>
         <p className={styles.subtitle}>생일을 축하해 주세요~</p>
       </header>
 
@@ -62,11 +75,14 @@ export default async function Page() {
         ) : (
           entries.map((entry) => (
             <article key={entry.id} className={styles.card}>
-              <span className={styles.cardCake}>
-                <CakeIcon type={entry.cake ?? "choco"} size={30} />
-              </span>
               <div className={styles.cardTop}>
-                <p className={styles.cardName}>{entry.name}</p>
+                <div className={styles.cardWho}>
+                  <span className={styles.cardSticker}>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={stickerSrc(entry.sticker)} alt="" />
+                  </span>
+                  <p className={styles.cardName}>{entry.name}</p>
+                </div>
                 <p className={styles.cardDate}>{formatDate(entry.created_at)}</p>
               </div>
               {entry.is_secret ? (
