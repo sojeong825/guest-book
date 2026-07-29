@@ -9,12 +9,17 @@ export const dynamic = "force-dynamic";
 export const revalidate = 0;
 
 function formatDate(iso: string): string {
-  const d = new Date(iso);
-  const month = d.getMonth() + 1;
-  const day = d.getDate();
-  const hh = String(d.getHours()).padStart(2, "0");
-  const mm = String(d.getMinutes()).padStart(2, "0");
-  return `${month}월 ${day}일 ${hh}:${mm}`;
+  // 서버(Vercel)는 UTC 라서, 표시는 한국시간(Asia/Seoul)으로 고정합니다.
+  const parts = new Intl.DateTimeFormat("ko-KR", {
+    timeZone: "Asia/Seoul",
+    month: "numeric",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    hourCycle: "h23",
+  }).formatToParts(new Date(iso));
+  const get = (t: string) => parts.find((p) => p.type === t)?.value ?? "";
+  return `${get("month")}월 ${get("day")}일 ${get("hour")}:${get("minute")}`;
 }
 
 async function getEntries(): Promise<GuestEntry[]> {
