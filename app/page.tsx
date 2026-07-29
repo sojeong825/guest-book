@@ -66,7 +66,7 @@ export default async function Page() {
             <svg
               key={i}
               className={styles.star}
-              style={{ top: s.top, left: s.left, width: s.size, height: s.size, opacity: s.o }}
+              style={{ top: s.top, left: s.left, width: s.size, height: s.size }}
               viewBox="0 0 24 24"
             >
               <path d="M12 .587l3.668 7.431 8.2 1.192-5.934 5.786 1.402 8.174L12 18.897l-7.336 3.863 1.402-8.174L.132 9.21l8.2-1.192z" />
